@@ -15,16 +15,15 @@ const USER_NAME_ERROR =
 	'Username at least 4 charatecers and letters, numbers, hyphen and underscore are allowed';
 
 const loanFormSchema = object({
-	clientId: string().required(FIELD_REQUIRED),
-	loanAmount: number().required(FIELD_REQUIRED),
-	interestRate: number().required(FIELD_REQUIRED),
+	loanAmount: number().min(5000).required(FIELD_REQUIRED),
+	interestRate: number().min(3).required(FIELD_REQUIRED),
 	typeInterest: string()
 		.oneOf(Object.values(TypeInterest))
 		.required(FIELD_REQUIRED),
 	period: number().min(3).max(12).required(),
 });
 
-const registerFormSchema = object({
+const clientFormSchema = object({
 	firstName: string()
 		.min(3, (value) => `Must be at least ${value.min} characters`)
 		.max(40, (value) => `Must be at most ${value.max} characters`)
@@ -37,7 +36,7 @@ const registerFormSchema = object({
 		.required(FIELD_REQUIRED),
 });
 
-export type RegisterFields = InferType<typeof registerFormSchema>;
+export type ClientFields = InferType<typeof clientFormSchema>;
 export type LoanFields = InferType<typeof loanFormSchema>;
 
-export { loanFormSchema, registerFormSchema };
+export { loanFormSchema, clientFormSchema };

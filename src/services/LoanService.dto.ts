@@ -11,3 +11,11 @@ export interface Loan {
 	createdAt: string;
 	id: string;
 }
+
+export interface LoanParams {
+	clientId: string;
+	capital: number;
+	interestRate: number;
+	typeInterest: string;
+	period: number;
+}

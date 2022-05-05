@@ -8,23 +8,36 @@ interface Props {
 }
 
 export const LoansTable: FC<Props> = ({ capital, interestRate, period }) => {
-	interestRate = interestRate / 100;
+	let cuotas = period;
+	// let capital = 165000;
 
-	const monthlyFee = (
-		(capital * interestRate) /
-		(1 - Math.pow(1 + interestRate, -period))
-	).toFixed(2);
+	// let interes = 0.100000001490116;
+	//* Recordar cuando es mensual o anual
+	let interes = Number((interestRate / 100).toPrecision(6));
 
-	let balance = capital;
+	let interesBase = interes + 1;
+
+	console.log('antes de entrar al bucle:', interesBase);
+
+	for (let i = 1; i < cuotas; i++) {
+		interesBase = interesBase * (1 + interes);
+	}
+
+	let valorCuotaMensual = capital / ((1 - 1 / interesBase) / interes);
+
+	//* Detallar todas las cuotas
+
 	const data: {
 		interestToPay: number;
 		capitalSubscription: number;
 		balance: number;
 	}[] = [];
 
-	while (period > 0) {
-		const interestToPay = balance * interestRate;
-		const capitalSubscription = Number(monthlyFee) - interestToPay;
+	let balance = capital;
+
+	while (cuotas > 0) {
+		const interestToPay = balance * interes;
+		const capitalSubscription = valorCuotaMensual - interestToPay;
 		balance -= capitalSubscription;
 
 		data.push({
@@ -33,8 +46,16 @@ export const LoansTable: FC<Props> = ({ capital, interestRate, period }) => {
 			balance,
 		});
 
-		--period;
+		--cuotas;
 	}
+
+	console.table(
+		data.map((element) => ({
+			interestToPay: element.interestToPay.toFixed(2),
+			capitalSubscription: element.capitalSubscription.toFixed(2),
+			balance: element.balance.toFixed(2),
+		}))
+	);
 
 	return (
 		<table className='border-collapse w-full'>
@@ -71,7 +92,7 @@ export const LoansTable: FC<Props> = ({ capital, interestRate, period }) => {
 								{index + 1}
 							</td>
 							<td className='w-full lg:w-auto p-3 text-gray-800 border border-b text-center block lg:table-cell relative lg:static'>
-								${monthlyFee}
+								${valorCuotaMensual.toFixed(2)}
 							</td>
 							<td className='w-full lg:w-auto p-3 text-gray-800 border border-b text-center block lg:table-cell relative lg:static'>
 								${interestToPay.toFixed(2)}

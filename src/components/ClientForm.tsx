@@ -4,30 +4,30 @@ import { useForm, FormProvider } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { faUser, faKey } from '@fortawesome/free-solid-svg-icons';
 import { FormInputGroup } from './FormInputGroup';
-import { LoanFields, loanFormSchema } from '../interfaces/YupValidationSchemas';
-import { SelectInputGroup } from './FormSelectGroup';
+import {
+	ClientFields,
+	clientFormSchema,
+} from '../interfaces/YupValidationSchemas';
+import ClientCombobox, { Client } from './Combobox';
 
 interface RegisterFormProps {
-	onSubmit: (data: LoanFields) => Promise<void>;
+	onSubmit: (data: ClientFields) => Promise<void>;
 }
 
-const LoanForm = (props: RegisterFormProps) => {
+const ClientForm = (props: RegisterFormProps) => {
 	const [status, setStatus] = useState<string>();
 	const [loading, setLoading] = useState(false);
 
-	const methods = useForm<LoanFields>({
+	const methods = useForm<ClientFields>({
 		defaultValues: {
-			// clientId: '',
-			loanAmount: 0,
-			interestRate: 1,
-			period: 3,
-			typeInterest: 'SIMPLE',
+			firstName: '',
+			lastName: '',
 		},
-		resolver: yupResolver(loanFormSchema),
+		resolver: yupResolver(clientFormSchema),
 		mode: 'onSubmit',
 	});
 
-	const handleOnSubmit = async (data: LoanFields) => {
+	const handleOnSubmit = async (data: ClientFields) => {
 		console.log('llega aqui');
 		setLoading(true);
 		try {
@@ -60,41 +60,22 @@ const LoanForm = (props: RegisterFormProps) => {
 				)}
 
 				<FormInputGroup
-					inputType={'number'}
-					labelText={'Loan amount'}
-					placeHolderText={'Loan amount'}
+					inputType={'text'}
+					labelText={'First name'}
+					placeHolderText={'First name'}
 					control={{
 						...methods.control,
-						name: 'loanAmount',
+						name: 'firstName',
 					}}
 				/>
 
 				<FormInputGroup
-					inputType={'number'}
-					labelText={'Interest rate'}
-					placeHolderText={'Interest rate'}
+					inputType={'text'}
+					labelText={'Last name'}
+					placeHolderText={'Last name'}
 					control={{
 						...methods.control,
-						name: 'interestRate',
-					}}
-				/>
-
-				<FormInputGroup
-					inputType={'number'}
-					labelText={'Period'}
-					placeHolderText={'Period'}
-					control={{
-						...methods.control,
-						name: 'period',
-					}}
-				/>
-
-				<SelectInputGroup
-					labelText={'Interest type'}
-					options={['simple', 'compound']}
-					control={{
-						...methods.control,
-						name: 'typeInterest',
+						name: 'lastName',
 					}}
 				/>
 
@@ -103,11 +84,11 @@ const LoanForm = (props: RegisterFormProps) => {
 					disabled={loading}
 					className='px-4 py-3 uppercase rounded-md font-semibold bg-gray-800 text-white hover:bg-blue-600 my-4 w-full transition-colors duration-300'
 				>
-					{loading ? 'Registering loan...' : 'Register loan'}
+					{loading ? 'Registering loan...' : 'Register client'}
 				</button>
 			</form>
 		</FormProvider>
 	);
 };
 
-export default LoanForm;
+export default ClientForm;
