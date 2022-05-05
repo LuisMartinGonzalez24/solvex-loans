@@ -58,22 +58,22 @@ export const LoansTable: FC<Props> = ({ capital, interestRate, period }) => {
 	);
 
 	return (
-		<table className='border-collapse w-full'>
+		<table className='border-collapse w-full rounded-md'>
 			<thead>
 				<tr>
-					<th className='p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell'>
+					<th className='p-3 font-bold uppercase bg-dark-green text-white border border-dark-green hidden lg:table-cell'>
 						Period
 					</th>
-					<th className='p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell'>
+					<th className='p-3 font-bold uppercase bg-dark-green text-white border border-dark-green hidden lg:table-cell'>
 						Monthly fee
 					</th>
-					<th className='p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell'>
+					<th className='p-3 font-bold uppercase bg-dark-green text-white border border-dark-green hidden lg:table-cell'>
 						Interest to pay
 					</th>
-					<th className='p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell'>
+					<th className='p-3 font-bold uppercase bg-dark-green text-white border border-dark-green hidden lg:table-cell'>
 						Capital subscription
 					</th>
-					<th className='p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell'>
+					<th className='p-3 font-bold uppercase bg-dark-green text-white border border-dark-green hidden lg:table-cell'>
 						Balance
 					</th>
 				</tr>

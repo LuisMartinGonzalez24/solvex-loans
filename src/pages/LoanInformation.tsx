@@ -26,19 +26,19 @@ export const LoanInformation = () => {
 	if (!loan || !showComponent) return <div>Loan not found</div>;
 
 	return (
-		<div>
-			<nav className='shadow-md bg-white'>
+		<div className='bg-gray-900 min-h-screen'>
+			<nav className='shadow-md bg-medium-green'>
 				<div className='container mx-auto py-4 flex flex-col md:flex-row items-center justify-between'>
 					<Link
 						to={'/'}
-						className='mr-5 py-2 px-6 text-lg uppercase bg-blue-600 text-white font-semibold text-center hover:bg-blue-900 transition-colors duration-300 rounded-lg'
+						className='mr-5 py-2 px-6 text-lg font-semibold uppercase bg-green-400 rounded-md text-dark-green hover:bg-gray-800 hover:text-white transition-colors duration-300'
 					>
 						Back to home
 					</Link>
 				</div>
 			</nav>
 
-			<div className='md:w-3/4 mx-auto mt-24'>
+			<div className='md:w-3/4 mx-auto mt-24 rounded-md overflow-hidden'>
 				<LoansTable
 					capital={loan.capital}
 					interestRate={loan.interestRate}

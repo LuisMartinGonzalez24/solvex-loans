@@ -52,13 +52,18 @@ const WrapperLoanForm = () => {
 
 	return (
 		<div>
-			{clients.length > 0 && (
-				<ClientCombobox
-					clients={clients}
-					selected={selected}
-					setSelected={setSelected}
-				/>
-			)}
+			<div>
+				<label className='text-white font-bold text-base mb-4 block'>
+					Select a Client
+				</label>
+				{clients.length > 0 && (
+					<ClientCombobox
+						clients={clients}
+						selected={selected}
+						setSelected={setSelected}
+					/>
+				)}
+			</div>
 			<LoanForm onSubmit={registerLoan} />
 		</div>
 	);

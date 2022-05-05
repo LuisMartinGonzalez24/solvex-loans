@@ -24,7 +24,7 @@ interface Props {
 export const LoanCard: FC<Props> = (props) => (
 	<button
 		className={classNames(
-			'bg-gray-800 text-white shadow-md rounded-md p-4 border-2 border-transparent hover:border-blue-400 transition-colors duration-200',
+			'bg-gray-900 text-white shadow-md rounded-md p-4 border-2 border-transparent hover:border-blue-400 transition-colors duration-200',
 			props.className
 		)}
 	>

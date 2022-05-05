@@ -11,7 +11,7 @@ interface Props {
 export const Sidebar: FC<Props> = ({ loans, className }) => {
 	return (
 		<aside className={classNames('w-full flex flex-col', className)}>
-			<h3 className='text-center uppercase text-xl text-slate-800 py-2 font-semibold'>
+			<h3 className='text-center uppercase text-2xl text-white py-6 font-bold'>
 				{loans.length ? 'Loans history' : 'Empty history'}
 			</h3>
 			<div className='flex flex-col'>

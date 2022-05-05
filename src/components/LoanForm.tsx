@@ -51,7 +51,7 @@ const LoanForm = (props: RegisterFormProps) => {
 		<FormProvider {...methods}>
 			<form
 				onSubmit={methods.handleSubmit(handleOnSubmit)}
-				className='px-6 py-6 max-w-lg mx-auto rounded-md shadow-lg bg-white'
+				className='px-6 py-6 rounded-md shadow-lg bg-white'
 			>
 				{status && (
 					<div className='mt-2 mb-3 border-l-4 border-red-500 text-red-700 py-2 pl-4 pr-1 bg-gray-200'>
