@@ -1,6 +1,8 @@
+export type Client = {
+	id: string;
+	client: string;
+};
+
 export interface ClientsResponse {
-	clients: {
-		id: string;
-		client: string;
-	}[];
+	clients: Client[];
 }

@@ -1,28 +1,17 @@
-import classNames from 'classnames';
 import { FC } from 'react';
-import Badge from './Badge';
-
-export enum StatusLoan {
-	Active = 'Active',
-	Paid = 'Paid',
-	Rejected = 'Rejected',
-}
-
-export type Loan = {
-	status: StatusLoan;
-	client: string;
-	capital: number;
-	interestRate: number;
-	typeInterest: string;
-};
+import classNames from 'classnames';
+import { Badge } from './Badge';
+import { Loan } from '../services/LoanService.dto';
 
 interface Props {
 	loan: Loan;
 	className?: string;
+	callBack(id: string): void;
 }
 
 export const LoanCard: FC<Props> = (props) => (
 	<button
+		onClick={() => props.callBack(props.loan.id)}
 		className={classNames(
 			'bg-gray-900 text-white shadow-md rounded-md p-4 border-2 border-transparent hover:border-blue-400 transition-colors duration-200',
 			props.className

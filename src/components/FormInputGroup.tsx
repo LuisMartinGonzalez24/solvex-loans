@@ -26,7 +26,6 @@ export const FormInputGroup = ({
 	control,
 }: FormInputGroupProps) => {
 	const { field, fieldState } = useController(control);
-	console.log('rendered: ', control.name);
 
 	return (
 		<div className='mb-4'>

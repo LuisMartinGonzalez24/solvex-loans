@@ -1,48 +1,50 @@
-import { useEffect, useRef, useState } from 'react';
+import { useMemo, useState } from 'react';
 import LoanService from '../services/LoanService';
 import ClientService from '../services/ClientService';
-import ClientCombobox, { Client } from '../components/Combobox';
-import LoanForm from './LoanForm';
+import { Client, ClientCombobox } from './Combobox';
+import { LoanForm } from './LoanForm';
 import { LoanFields } from '../interfaces/YupValidationSchemas';
 import { AxiosError } from 'axios';
+import { useAppContext } from '../context/AppProvider';
 
-const WrapperLoanForm = () => {
-	const [clients, setClients] = useState<Client[]>([]);
-	const [selected, setSelected] = useState<Client>({ id: '', name: '' });
+export const WrapperLoanForm = () => {
+	const {
+		appState: { clients },
+		dispatch,
+	} = useAppContext();
+	const [selectedClient, setSelectedClient] = useState<Client>({
+		id: '',
+		name: '',
+	});
 
-	const getClients = () => {
-		ClientService.getClients().then((res) => {
-			console.log(res.data);
-			setSelected({
-				...res.data.clients[0],
-				name: res.data.clients[0].client,
-			});
-			setClients(
-				res.data.clients.map((client) => ({
-					...client,
-					name: client.client,
-				}))
-			);
-		});
-	};
-
-	useEffect(() => {
-		getClients();
-	}, []);
+	const clientList = useMemo(() => {
+		return clients.map((client) => ({
+			...client,
+			name: client.client,
+		}));
+	}, [clients]);
 
 	const registerLoan = async ({ loanAmount, ...rest }: LoanFields) => {
 		try {
-			await LoanService.registerLoan({
+			console.log('llega aqui: ', { loanAmount, ...rest });
+
+			const response = await LoanService.registerLoan({
 				...rest,
-				clientId: '',
+				clientId: selectedClient.id,
 				capital: loanAmount,
 			});
-			console.log({ loanAmount, ...rest });
+
+			console.log(response.data.loan);
+
+			dispatch({
+				type: '[loan] add loan',
+				payload: response.data.loan,
+			});
 		} catch (error) {
 			const axiosError = error as AxiosError;
 
 			if (axiosError.response) {
-				// console.log(axiosError.response.data);
+				console.log(axiosError.response.data);
 				return;
 			}
 
@@ -58,9 +60,9 @@ const WrapperLoanForm = () => {
 				</label>
 				{clients.length > 0 && (
 					<ClientCombobox
-						clients={clients}
-						selected={selected}
-						setSelected={setSelected}
+						clients={clientList}
+						selected={selectedClient}
+						setSelected={setSelectedClient}
 					/>
 				)}
 			</div>
@@ -68,4 +70,3 @@ const WrapperLoanForm = () => {
 		</div>
 	);
 };
-export default WrapperLoanForm;

@@ -19,7 +19,7 @@ const loanFormSchema = object({
 	interestRate: number().min(3).required(FIELD_REQUIRED),
 	typeInterest: string()
 		.oneOf(Object.values(TypeInterest))
-		.required(FIELD_REQUIRED),
+		.required('Value send not allowed'),
 	period: number().min(3).max(12).required(),
 });
 

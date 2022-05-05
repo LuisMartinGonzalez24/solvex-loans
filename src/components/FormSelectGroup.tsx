@@ -52,6 +52,11 @@ export const SelectInputGroup = ({
 					<FontAwesomeIcon icon={icon} className='absolute left-3' />
 				)}
 			</div>
+			{fieldState.error && (
+				<div className='mt-2 border-l-4 border-red-500 text-red-700 py-2 pl-4 pr-1 bg-gray-200'>
+					<p className='text-xs'>{fieldState.error.message}</p>
+				</div>
+			)}
 		</div>
 	);
 };

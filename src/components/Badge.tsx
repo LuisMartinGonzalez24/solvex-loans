@@ -1,6 +1,6 @@
 import { FC, memo } from 'react';
 import classNames from 'classnames';
-import { StatusLoan } from '.';
+import { StatusLoan } from '../services/LoanService.dto';
 
 interface Props {
 	status: StatusLoan;
@@ -22,7 +22,7 @@ const getStatusColor = (status: StatusLoan): string => {
 	}
 };
 
-const Badge: FC<Props> = ({ status }) => (
+export const Badge: FC<Props> = memo(({ status }) => (
 	<span
 		className={classNames(
 			'flex items-center justify-center uppercase text-center font-bold text-xs text-white p-1 rounded-md',
@@ -31,6 +31,4 @@ const Badge: FC<Props> = ({ status }) => (
 	>
 		{status}
 	</span>
-);
-
-export default memo(Badge);
+));

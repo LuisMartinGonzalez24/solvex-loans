@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { AxiosError } from 'axios';
 import { useForm, FormProvider } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { faUser, faKey } from '@fortawesome/free-solid-svg-icons';
 import { FormInputGroup } from './FormInputGroup';
 import { LoanFields, loanFormSchema } from '../interfaces/YupValidationSchemas';
 import { SelectInputGroup } from './FormSelectGroup';
@@ -11,13 +10,12 @@ interface RegisterFormProps {
 	onSubmit: (data: LoanFields) => Promise<void>;
 }
 
-const LoanForm = (props: RegisterFormProps) => {
+export const LoanForm = (props: RegisterFormProps) => {
 	const [status, setStatus] = useState<string>();
 	const [loading, setLoading] = useState(false);
 
 	const methods = useForm<LoanFields>({
 		defaultValues: {
-			// clientId: '',
 			loanAmount: 0,
 			interestRate: 1,
 			period: 3,
@@ -91,7 +89,7 @@ const LoanForm = (props: RegisterFormProps) => {
 
 				<SelectInputGroup
 					labelText={'Interest type'}
-					options={['simple', 'compound']}
+					options={['SIMPLE', 'COMPOUND']}
 					control={{
 						...methods.control,
 						name: 'typeInterest',
@@ -109,5 +107,3 @@ const LoanForm = (props: RegisterFormProps) => {
 		</FormProvider>
 	);
 };
-
-export default LoanForm;

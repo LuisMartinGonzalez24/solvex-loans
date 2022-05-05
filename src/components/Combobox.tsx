@@ -13,8 +13,11 @@ interface Props {
 	setSelected: Dispatch<React.SetStateAction<Client>>;
 }
 
-const ClientCombobox: FC<Props> = ({ clients, selected, setSelected }) => {
-	// const [selected, setSelected] = useState(clients[0]);
+export const ClientCombobox: FC<Props> = ({
+	clients,
+	selected,
+	setSelected,
+}) => {
 	const [query, setQuery] = useState('');
 
 	const filteredclients =
@@ -100,13 +103,6 @@ const ClientCombobox: FC<Props> = ({ clients, selected, setSelected }) => {
 					</Transition>
 				</div>
 			</Combobox>
-
-			{/* {fieldState.error && (
-				<div className='mt-2 border-l-4 border-red-500 text-red-700 py-2 pl-4 pr-1 bg-gray-200'>
-					<p className='text-xs'>{fieldState.error.message}</p>
-				</div>
-			)} */}
 		</div>
 	);
 };
-export default ClientCombobox;

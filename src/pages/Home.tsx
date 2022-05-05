@@ -1,16 +1,27 @@
 import { FC, useState } from 'react';
-import { Sidebar, StatusLoan } from '../components';
-import ClientForm from '../components/ClientForm';
-import WrapperLoanForm from '../components/WrapperLoanForm';
+import { Sidebar, WrapperLoanForm, ClientForm } from '../components';
+import { useAppContext } from '../context/AppProvider';
 import { ClientFields } from '../interfaces/YupValidationSchemas';
 import ClientService from '../services/ClientService';
 
 const HomePage: FC = () => {
+	const {
+		appState: { loansHistory },
+		dispatch,
+	} = useAppContext();
 	const [selectForm, setSelectForm] = useState<'client' | 'loan'>('client');
 
 	const registerClient = async ({ firstName, lastName }: ClientFields) => {
 		try {
-			await ClientService.registerClient(firstName, lastName);
+			const response = await ClientService.registerClient(
+				firstName,
+				lastName
+			);
+			dispatch({
+				type: '[client] add client',
+				payload: response.data,
+			});
+
 			console.log('Client registered');
 		} catch (error) {}
 	};
@@ -27,7 +38,7 @@ const HomePage: FC = () => {
 		<main className='bg-gray-900 grid grid-cols-12 min-h-screen'>
 			<div className='col-span-3 bg-medium-green shadow-md overflow-y-auto'>
 				<div className='h-96'>
-					<Sidebar className='px-4' loans={[]} />
+					<Sidebar className='px-4' loans={loansHistory} />
 				</div>
 			</div>
 			<div className='col-span-9'>

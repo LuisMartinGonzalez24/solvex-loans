@@ -2,19 +2,17 @@ import { useState } from 'react';
 import { AxiosError } from 'axios';
 import { useForm, FormProvider } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { faUser, faKey } from '@fortawesome/free-solid-svg-icons';
 import { FormInputGroup } from './FormInputGroup';
 import {
 	ClientFields,
 	clientFormSchema,
 } from '../interfaces/YupValidationSchemas';
-import ClientCombobox, { Client } from './Combobox';
 
 interface RegisterFormProps {
 	onSubmit: (data: ClientFields) => Promise<void>;
 }
 
-const ClientForm = (props: RegisterFormProps) => {
+export const ClientForm = (props: RegisterFormProps) => {
 	const [status, setStatus] = useState<string>();
 	const [loading, setLoading] = useState(false);
 
@@ -90,5 +88,3 @@ const ClientForm = (props: RegisterFormProps) => {
 		</FormProvider>
 	);
 };
-
-export default ClientForm;
